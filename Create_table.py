@@ -30,8 +30,8 @@ cursor.execute('''
 #               ''')
 #db.commit()
 
-#cursor.execute("SELECT * FROM dzieci")
-#print(cursor.fetchall())
+cursor.execute("SELECT * FROM users")
+print(cursor.fetchall())
 
 
 def check_grup(username):

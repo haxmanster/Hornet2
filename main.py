@@ -160,8 +160,8 @@ def child():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if session['username'] == 'admin':
-        username = session['username']
+    username = session['username']
+    if check_grupa(username) == check_grupa('admin'):
         if request.method == 'POST':
             with sqlite3.connect("static/user.db") as db:
                 cursor = db.cursor()
