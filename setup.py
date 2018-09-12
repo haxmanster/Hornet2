@@ -1,7 +1,7 @@
 import sqlite3
 import hashlib
 
-with sqlite3.connect("static/user.db") as db:
+with sqlite3.connect("app/static/user.db") as db:
     cursor = db.cursor()
 
 cursor.execute('''
@@ -22,12 +22,18 @@ cursor.execute('''
                     grupa TEXT NOT NULL)
                 ''')
 
+cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS posts(
+                    email TEXT NOT NULL,
+                    title TEXT NOT NULL,
+                    contents TEXT NOT NULL)
+                ''')
+
 def hash_passwd(hashed_password):
     hash_pass = hashlib.sha224(hashed_password.encode()).hexdigest()
     return hash_pass
 
 def create_admin():
-
     grupa = input('Dodaj grupe użytkowników (admin, nauczyciel, rodzic)" ')
     username = input('Dodaj Uzytkownika: ')
     password = hash_passwd(input('Podaj hasło: '))
@@ -41,7 +47,7 @@ def create_admin():
     )
     db.commit()
 
-    cursor.execute("SELECT * FROM users")
+    cursor.execute("SELECT * FROM posts")
     print(cursor.fetchall())
     return grupa, username,password,email
 

@@ -32,8 +32,7 @@
         <ul class="nav navbar-nav navbar-right">
             {% if grupa == 'nauczyciel' %}
                     <li><a href="{{ url_for('index') }}">Home</a></li>
-	                <li><a href="{{ url_for('profil') }}">Profil</a></li>
-                    <li><a href="{{ url_for('child') }}">Child</a></li>
+                    <li><a href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a></li>
             {% endif %}
             {% if grupa == 'rodzic' %}
                     <li><a href="{{ url_for('index') }}">Home</a></li>
@@ -46,6 +45,7 @@
                     <li><a href="{{ url_for('child') }}">Child</a></li>
                     <li><a href="{{ url_for('admin') }}">Admin</a></li>
                     <li><a href="{{ url_for('upload_file') }}">send file</a></li>
+                    <li><a href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a></li>
             {% endif %}
             {% if session['username'] %}
              <li><a href="{{ url_for('logout') }}">Wyloguj</a></li>
