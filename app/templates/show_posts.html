@@ -7,20 +7,17 @@
             <h1> Witaj na stronie ogłoszen Wersja BETA ;D</h1>
         </div>
         <div class="panel-body">
-           <P> EMAIL AUTORA :</P>
-            {% for item in data %}
-            {{item[0]}}
-            {% endfor %}
+            <ul>
+                {% for item in data %}
+                <P> EMAIL AUTORA :</P>
+                <li>{{item[0]}}</li>
+                <P> TYTUŁ OGŁOSZENIA</P>
+                    <li>{{item[1]}}</li>
+                <P>TREŚC OGŁOSZENIA:</P>
+                    <li>{{item[2]}}</li>
+                {% endfor %}
+            </ul>
 
-            <P> TYTUŁ OGŁSZENIA :</P>
-            {% for item in data %}
-            {{item[1]}}
-            {% endfor %}
-
-            <P> TREŚć OGŁOSZENIA :</P>
-            {% for item in data %}
-            {{item[2]}}
-            {% endfor %}
         </div>
     </div>
 </div>
