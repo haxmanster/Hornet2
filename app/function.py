@@ -9,6 +9,12 @@ def db_connect():
     with sqlite3.connect("app/static/user.db") as db:
         cursor = db.cursor()
         cursor.execute('SELECT * FROM users, dzieci')
+        data = cursor.fetchall()
+        return data
+
+def db_connect_post():
+    with sqlite3.connect("app/static/user.db") as db:
+        cursor = db.cursor()
         cursor.execute('SELECT * FROM posts')
         data = cursor.fetchall()
         return data
@@ -72,5 +78,5 @@ def validate(username, password):
     return completion
 
 def show_posted():
-    find = db_connect()
+    find = db_connect_post()
     return find
