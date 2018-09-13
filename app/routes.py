@@ -10,9 +10,11 @@ from app.function import validate, check_grupa, hash_passwd, find_child, allowed
 def index():
     if 'username' in session:
         username = session['username']
-        return render_template('base.html', the_title="BAZA PRZEDSZKOLAKA", info=username, grupa=check_grupa(username))
+        data = show_posted()
+        return render_template('show_posts.html', the_title="BAZA PRZEDSZKOLAKA", info=username,
+                               grupa=check_grupa(username), data=data)
     else:
-        return redirect(url_for('show_posts'), )
+        return render_template('base.html', the_title="BAZA PRZEDSZKOLAKA")
 
 
 @app.route('/profil')
@@ -106,80 +108,93 @@ def register():
                                grupa=check_grupa(username))
 
 
-@app.route('/admin')
+@app.route('/admin/')
 def admin():
-    username = session['username']
-    if check_grupa(username) == check_grupa('admin'):
-        return render_template('admin.html', grupa=check_grupa(username), info=username)
-    else:
-        session.pop('username', None)
-        session.clear()
-        return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
+    if 'username' in session:
+        username = session['username']
+        if check_grupa(username) == 'admin':
+            return render_template('admin.html', grupa=check_grupa(username), info=username)
+
+    return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
 
 
 @app.route('/search_db', methods=['POST', 'GET'])
 def search_db():
-    username = session['username']
-    if check_grupa(username) == check_grupa('admin'):
-        if request.method == 'POST':
-            pesel = request.form['person_id']
-            data = find_child(pesel)
-            return render_template('search_db.html', grupa=check_grupa(username), info=username, data=data[::])
-        return render_template('search_db.html', grupa=check_grupa(username), info=username)
-    else:
+    if 'username' in session:
+        username = session['username']
+        if check_grupa(username) == 'admin':
+            if request.method == 'POST':
+                pesel = request.form['person_id']
+                data = find_child(pesel)
+                return render_template('search_db.html', grupa=check_grupa(username), info=username, data=data[::])
+            return render_template('search_db.html', grupa=check_grupa(username), info=username)
         session.pop('username', None)
         session.clear()
+        return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
+    else:
         return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
 
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
-    username = session['username']
-    if check_grupa(username) == check_grupa('admin'):
-        if request.method == 'POST':
-            if 'file' not in request.files:
-                flash('No file part')
-                return redirect(request.url)
-            file = request.files['file']
-            if file.filename == '':
-                flash('No selected file')
-                return redirect(request.url)
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join('app/static/storage', filename))
-                return redirect(url_for('index', filename=filename)), flash('Upload file successfull')
-        return render_template('upload.html', info=username, grupa=check_grupa(username))
+    if 'username' in session:
+        username = session['username']
+        if check_grupa(username) == 'admin':
+            if request.method == 'POST':
+                if 'file' not in request.files:
+                    flash('No file part')
+                    return redirect(request.url)
+                file = request.files['file']
+                if file.filename == '':
+                    flash('No selected file')
+                    return redirect(request.url)
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join('app/static/storage', filename))
+                    return redirect(url_for('index', filename=filename)), flash('Upload file successfull')
+            return render_template('upload.html', info=username, grupa=check_grupa(username))
+        session.pop('username', None)
+        session.clear()
+        return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
+    return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
 
 
 @app.route('/check_users', methods=['POST', 'GET'])
 def check_user():
-    username = session['username']
-    if check_grupa(username) == check_grupa('admin'):
-        data = check_username()
-        return render_template('check_users.html', grupa=check_grupa(username), info=username, data=data)
-    else:
-        return render_template('check_users.html',)
+    if 'username' in session:
+        username = session['username']
+        if check_grupa(username) == check_grupa('admin'):
+            data = check_username()
+            return render_template('check_users.html', grupa=check_grupa(username), info=username, data=data)
+        session.pop('username', None)
+        session.clear()
+        return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
+    return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
 
 
 @app.route('/add_post', methods=['POST', 'GET'])
 def add_post():
-    username = session['username']
-    if check_grupa(username) == 'nauczyciel' or check_grupa(username) == check_grupa('admin'):
-        if request.method == 'POST':
-            with sqlite3.connect("app/static/user.db") as db:
-                cursor = db.cursor()
-            cursor.execute(
-                'INSERT INTO posts (email, title, contents) VALUES (?, ?, ?)',
-                (
-                    request.form.get('email', type=str),
-                    request.form.get('title', type=str),
-                    request.form.get('contents', type=str)
+    if 'username' in session:
+        username = session['username']
+        if check_grupa(username) == 'nauczyciel' or check_grupa(username) == check_grupa('admin'):
+            if request.method == 'POST':
+                with sqlite3.connect("app/static/user.db") as db:
+                    cursor = db.cursor()
+                cursor.execute(
+                    'INSERT INTO posts (email, title, contents) VALUES (?, ?, ?)',
+                    (
+                        request.form.get('email', type=str),
+                        request.form.get('title', type=str),
+                        request.form.get('contents', type=str)
+                    )
                 )
-            )
-            db.commit()
-        return render_template('add_post.html', grupa=check_grupa(username), info=username)
+                db.commit()
+            return render_template('add_post.html', grupa=check_grupa(username), info=username)
+        session.pop('username', None)
+        session.clear()
+        return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
 
 
 @app.route('/show_posts')

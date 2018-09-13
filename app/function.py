@@ -1,5 +1,6 @@
 import hashlib
 import sqlite3
+from flask import sessions,session
 
 
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'jpg', 'png', 'jpeg', 'gif', 'doc', 'rar'}
@@ -80,3 +81,7 @@ def validate(username, password):
 def show_posted():
     find = db_connect_post()
     return find
+
+def username_sesion():
+    username = session['username']
+    return username
