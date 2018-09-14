@@ -24,6 +24,8 @@ cursor.execute('''
 
 cursor.execute('''
                     CREATE TABLE IF NOT EXISTS posts(
+                    time TIMESTAMP
+                    DEFAULT CURRENT_TIMESTAMP,
                     email TEXT NOT NULL,
                     title TEXT NOT NULL,
                     contents TEXT NOT NULL)

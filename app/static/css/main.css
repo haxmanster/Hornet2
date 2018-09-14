@@ -6,103 +6,113 @@ body {
     color: #444;
 }
 
-
-header {
-  width: 100%;
-  opacity: .9,2;
-  margin-bottom: 10px;
-}
-
-header h1.logo {
-  margin: 0;
-  padding-top: 5px;
-  font-size: 1.7em;
-  color: #fff;
-  text-transform: uppercase;
-  float: left;
-}
-header a.logo {
-  color: #fff;
-}
 ul {
   list-style-type:none;
 }
-.navbar-header h1 {
-  color: #FFFFFF;
-  text-decoration: none;
+
+.navbar-global {
+  background-color: indigo;
 }
 
-
-h2 {
-  font-size: 3em;
-  margin-top: 40px;
-  text-align: center;
-  letter-spacing: -2px;
+.navbar-global .navbar-brand {
+  color: white;
 }
 
-h3 {
-  font-size: 1.7em;
-  font-weight: 100;
-  margin-top: 30px;
-  text-align: center;
-  letter-spacing: -1px;
-  color: #999;
+.navbar-global .navbar-user > li > a
+{
+  color: white;
 }
 
-/*
- * Display navigation links inline
- */
- .admin_field h1 {
- color: White;
-
- }
-.admin_field {
-    width: 78%;
-    float: right;
-    margin-right: 1%
+.navbar-primary {
+  background-color: #333;
+  bottom: 0px;
+  left: 0px;
+  position: absolute;
+  top: 51px;
+  width: 200px;
+  z-index: 8;
+  overflow: hidden;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
-.example3 .navbar-brand {
-  height: 90px;
-
+.navbar-primary.collapsed {
+  width: 60px;
 }
 
-.colors {
-    color: black;
+.navbar-primary.collapsed .glyphicon {
+  font-size: 22px;
 }
 
-.colors p {
+.navbar-primary.collapsed .nav-label {
+  display: none;
+}
+
+.btn-expand-collapse {
+    position: absolute;
+    display: block;
+    left: 0px;
+    bottom:0;
+    width: 100%;
+    padding: 8px 0;
+    border-top:solid 1px #666;
+    color: grey;
     font-size: 20px;
+    text-align: center;
+}
+
+.btn-expand-collapse:hover,
+.btn-expand-collapse:focus {
+    background-color: #222;
     color: white;
 }
-.example3 .nav >li >a {
-  padding-top: 30px;
-  padding-bottom: 30px;
+
+.btn-expand-collapse:active {
+    background-color: #111;
 }
-.example3 .navbar-toggle {
+
+.navbar-primary-menu,
+.navbar-primary-menu li {
+  margin:0; padding:0;
+  list-style: none;
+}
+
+.navbar-primary-menu li a {
+  display: block;
+  padding: 10px 18px;
+  text-align: left;
+  border-bottom:solid 1px #444;
+  color: #ccc;
+}
+
+.navbar-primary-menu li a:hover {
+  background-color: #000;
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-primary-menu li a .glyphicon {
+  margin-right: 6px;
+}
+
+.navbar-primary-menu li a:hover .glyphicon {
+  color: orchid;
+}
+
+.navbar-header h3 {
+    color: white;
+    font-size: 15px;
+}
+
+.main-content {
+  margin-top: 30px;
+  margin-left: 200px;
   padding: 10px;
-  margin: 25px 15px 25px 0;
 }
 
-@media only screen and (max-width : 768px){
-  .example3 .navbar-brand {
-  padding: 0px;
-  transform: translateX(-50%);
-  left: 50%;
-  position: absolute;
-}
-.example3 .navbar-brand>img {
-  height: 100%;
-  width: auto;
-  padding: 7px 14px;
-}
-}
-
-
-.login-page {
-    width: 360px;
-    padding: 8% 0 0;
-    margin: auto;
+.collapsed + .main-content {
+  margin-left: 60px;
 }
 
 .form {
@@ -156,54 +166,6 @@ h3 {
 .form .register-form {
     display: none;
 }
-.container {
-    position: relative;
-    z-index: 1;
-    width: 100%
-    margin: 0 auto;
-}
-.container:before, .container:after {
-    content: "";
-    display: block;
-    clear: both;
-}
-.container .info {
-    margin: 50px auto;
-    text-align: center;
-}
-.container .info h1 {
-    margin: 0 0 15px;
-    padding: 0;
-    font-size: 36px;
-    font-weight: 300;
-    color: #1a1a1a;
-}
-.container .info span {
-    color: #4d4d4d;
-    font-size: 12px;
-}
-.container .info span a {
-    color: #000000;
-    text-decoration: none;
-}
-.container .info span .fa {
-    color: #EF3B3A;
-}
-
-.metek {
-    position: relative;
-    z-index: 0;
-    background: #FFFFFF;
-    max-width: 800px;
-    margin: 0 auto 100px;
-    padding: 45px;
-    text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-}
-.mietek h1{
-
-    color:white;
-}
 
 .footer {
   color:grey;
@@ -213,9 +175,4 @@ h3 {
   width: 100%;
   left: 0;
   bottom: 0;
-}
-
-.intro h1 {
-    color:white;
-
 }

@@ -28,12 +28,12 @@ def check_username():
 def find_child(pesel):
         data = db_connect()
         for rows in data[:]:
-            pesel = rows[5]
+            person_id = rows[5]
             name = rows[6]
             surname = rows[7]
             date_of_birth = rows[8]
             group = rows[9]
-            result = "PESEL :" + " " + pesel, "IMIĘ :" + " " + name, "NAZWISKO :" + " " + surname, \
+            result = "PESEL :" + " " + person_id, "IMIĘ :" + " " + name, "NAZWISKO :" + " " + surname, \
                      "DATA URODZENIA :" + " " + date_of_birth, "GRUPA PRZEDSZKOLNA :" + " " + group
             return result
 
@@ -85,3 +85,4 @@ def show_posted():
 def username_sesion():
     username = session['username']
     return username
+

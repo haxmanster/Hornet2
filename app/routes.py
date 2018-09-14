@@ -126,7 +126,7 @@ def search_db():
             if request.method == 'POST':
                 pesel = request.form['person_id']
                 data = find_child(pesel)
-                return render_template('search_db.html', grupa=check_grupa(username), info=username, data=data[::])
+                return render_template('search_db.html', grupa=check_grupa(username), info=username, data=data)
             return render_template('search_db.html', grupa=check_grupa(username), info=username)
         session.pop('username', None)
         session.clear()

@@ -1,26 +1,42 @@
 {% extends 'base.html' %}
-{% block body %}
 
-<div class="container-fluid">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h1> Witaj na stronie ogłoszen Wersja BETA ;D</h1>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                {% for item in data %}
-                <div class="col-md-12 col-lg-12" align="left">
-                    <h5><b>Email:</b> {{item[0]}}</h5>
-                </div>
-                <div class="col-md-12 col-lg-12">
-                    <h5><b>Tyutuł:</b> {{item[1]}}</h5>
-                </div>
-                <div class="col-md-12 col-lg-12">
-                    <h5><b>Treść:</b> {{item[2]}}</h5>
-                </div>
+{% block header %}
+<nav class="navbar-primary">
+  <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-arrow-left"></span></a>
+  <ul class="navbar-primary-menu">
+    <li>
+        <a href="#"><span class="glyphicon glyphicon-eye-open"></span><span class="nav-label">PANEL OGŁOSZEN</span></a>
+        <a href="#"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Dashboard</span></a>
+        <a href="#"><span class="glyphicon glyphicon-envelope"></span><span class="nav-label">Profile</span></a>
+        <a href="#"><span class="glyphicon glyphicon-cog"></span><span class="nav-label">Settings</span></a>
+        <a href="#"><span class="glyphicon glyphicon-film"></span><span class="nav-label">Notification</span></a>
+        <a href="#"><span class="glyphicon glyphicon-calendar"></span><span class="nav-label">Monitor</span></a>
+    </li>
+  </ul>
+</nav>
+{% endblock %}
+
+{% block body %}
+<div class="main-content">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <div class="row">
+                    {% for item in data %}
+                    <div class="col-md-12 col-lg-12" align="left">
+                        <h5><b>Data:</b> {{item[0]}}</h5>
+                    </div>
+                    <div class="col-md-12 col-lg-12" align="left">
+                        <h5><b>Email:</b> {{item[1]}}</h5>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <h5><b>Tyutuł:</b> {{item[2]}}</h5>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <h5><b>Treść:</b> {{item[3]}}</h5>
+                    </div>
                   {% endfor %}
                 </div>
+            </div>
         </div>
-    </div>
 </div>
 {% endblock %}

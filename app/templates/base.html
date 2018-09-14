@@ -18,19 +18,24 @@
 <body>
 
 <header>
-<div class="example3">
-  <nav class="navbar navbar-inverse navbar-static-top">
-    <div class="container">
-      <div class="navbar-header">
-          {% if session['username'] %}
-            <h1>Witaj : {{info}}</h1>
-          {% else %}
-          <h1>Baza Przedszkolaka</h1>
-          {% endif %}
-      </div>
-      <div id="navbar3" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-            {% if grupa == 'nauczyciel' %}
+<nav class="navbar navbar-inverse navbar-global navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Baza przedszkolaka</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+             {% if session['username'] %}
+            <h3><span class="glyphicon glyphicon-user"></span> {{info}}</h3>
+            {% else %}
+            <a class="navbar-brand" href="#">Baza Przedszkolaka</a>
+            {% endif %}
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-user navbar-right">
+               {% if grupa == 'nauczyciel' %}
                     <li><a href="{{ url_for('index') }}">Home</a></li>
                     <li><a href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a></li>
             {% endif %}
@@ -53,15 +58,16 @@
                 <li><a href="{{ url_for('index') }}">Home</a></li>
                 <li><a href="{{ url_for('login') }}">Login</a></li>
             {% endif %}
-        </ul>
+          </ul>
+        </div><!--/.nav-collapse -->
       </div>
-    </div>
-  </nav>
-</div>
+    </nav>
+
      {% block header%}
 
       {% endblock %}
 </header>
+    <div class="main-content">
         {% with messages = get_flashed_messages() %}
         {%if messages%}
             {% for message in messages %}
@@ -72,16 +78,22 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
+    </div>
 {%block body%}
 
 {% endblock %}
-
 
 
 <div class="footer">
   <p>Copyright by Grzegorz Wolyniec design by Tweety86</p>
 </div>
 <!-- LIBRARY -->
+<script>
+    $('.btn-expand-collapse').click(function(e) {
+				$('.navbar-primary').toggleClass('collapsed');
+				$('.main-content').toggleClass('collapsed');
+    });
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
 </script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">

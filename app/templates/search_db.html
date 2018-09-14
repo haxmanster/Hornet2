@@ -1,8 +1,7 @@
 {% extends 'admin.html' %}
 
 {% block body %}
-
-<div class="admin_field">
+<div class="main-content">
   <div class="panel panel-primary">
             <div class="panel-heading">
                   <div class="row">
@@ -24,8 +23,8 @@
                                 <P> {{item}} </P>
                           {% endfor %}
                        </div>
-                      <div class="col-md-4 col-lg-4 " align="left">
-                          <textarea name= 'uwagi' cols="110" rows="5"> wpisz</textarea>
+                      <div class=" col-xs-12 col-md-4 col-lg-4 " align="left">
+                          <textarea name= 'uwagi' rows="5"> wpisz</textarea>
                           <button type="submit" class="btn btn-success">Wyslij <i class="fa fa-bell" aria-hidden="true"></i></button>
                       </div>
                       <div class="col-md-4 col-lg-4 " align="left">
