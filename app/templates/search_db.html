@@ -18,23 +18,25 @@
             </div>
             <div class="panel-body">
                   <div class="row">
-                       <div class="col-md-4 col-lg-4 " align="left">
-                             {% for item in data %}
-                                <P> {{item}} </P>
-                          {% endfor %}
-                       </div>
-                      <div class=" col-xs-12 col-md-4 col-lg-4 " align="left">
-                          <textarea name= 'uwagi' rows="5"> wpisz</textarea>
-                          <button type="submit" class="btn btn-success">Wyslij <i class="fa fa-bell" aria-hidden="true"></i></button>
-                      </div>
-                      <div class="col-md-4 col-lg-4 " align="left">
-                      </div>
-                      <div class="col-md-4 col-lg-4 " align="left">
-                      </div>
-
-
-                      </div>
+                    {% for item in data %}
+                    <div class="col-md-12 col-lg-12" align="left">
+                        <h5><b>PESEL:</b> {{item[0]}}</h5>
+                    </div>
+                    <div class="col-md-12 col-lg-12" align="left">
+                        <h5><b>Imię:</b> {{item[1]}}</h5>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <h5><b>Nazwisko:</b> {{item[2]}}</h5>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <h5><b>data-urodzenia:</b> {{item[3]}}</h5>
+                    </div>
+                      <div class="col-md-12 col-lg-12">
+                        <h5><b>Grupa:</b> {{item[4]}}</h5>
+                    </div>
+                  {% endfor %}
+                </div>
+                  </div>
                   </div>
             </div>
-</div>
 {% endblock %}

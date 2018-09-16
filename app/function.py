@@ -9,7 +9,7 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'jpg', 'png', 'jpeg', 'gif', 'doc', 'rar'}
 def db_connect():
     with sqlite3.connect("app/static/user.db") as db:
         cursor = db.cursor()
-        cursor.execute('SELECT * FROM users, dzieci')
+        cursor.execute('SELECT * FROM users')
         data = cursor.fetchall()
         return data
 
@@ -26,16 +26,11 @@ def check_username():
 
 
 def find_child(pesel):
-        data = db_connect()
-        for rows in data[:]:
-            person_id = rows[5]
-            name = rows[6]
-            surname = rows[7]
-            date_of_birth = rows[8]
-            group = rows[9]
-            result = "PESEL :" + " " + person_id, "IMIĘ :" + " " + name, "NAZWISKO :" + " " + surname, \
-                     "DATA URODZENIA :" + " " + date_of_birth, "GRUPA PRZEDSZKOLNA :" + " " + group
-            return result
+    with sqlite3.connect("app/static/user.db") as db:
+        cursor = db.cursor()
+        cursor.execute('SELECT * FROM dzieci WHERE person_id = ?', (pesel,))
+        data = cursor.fetchall()
+        return data
 
 
 def check_grupa(username):

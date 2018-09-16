@@ -14,7 +14,7 @@ cursor.execute('''
 
 cursor.execute('''
                     CREATE TABLE IF NOT EXISTS dzieci(
-                    person_id TEXT NOT NULL,
+                    person_id INTEGER NOT NULL,
                     name TEXT NOT NULL,
                     surname TEXT NOT NULL,
                     birth TEXT NOT NULL ,

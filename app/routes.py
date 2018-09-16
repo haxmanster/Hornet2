@@ -118,7 +118,7 @@ def admin():
     return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
 
 
-@app.route('/search_db', methods=['POST', 'GET'])
+@app.route('/search_db/', methods=['POST', 'GET'])
 def search_db():
     if 'username' in session:
         username = session['username']
@@ -126,13 +126,10 @@ def search_db():
             if request.method == 'POST':
                 pesel = request.form['person_id']
                 data = find_child(pesel)
-                return render_template('search_db.html', grupa=check_grupa(username), info=username, data=data)
-            return render_template('search_db.html', grupa=check_grupa(username), info=username)
-        session.pop('username', None)
-        session.clear()
-        return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
-    else:
-        return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
+                return render_template('search_db.html', grupa=check_grupa(username), info=username, data=data[::])
+        return render_template('search_db.html', grupa=check_grupa(username), info=username)
+    return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
+
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -201,3 +198,4 @@ def add_post():
 def show_posts():
         data = show_posted()
         return render_template('show_posts.html', data=data)
+
