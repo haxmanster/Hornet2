@@ -16,7 +16,7 @@ def db_connect():
 def db_connect_post():
     with sqlite3.connect("app/static/user.db") as db:
         cursor = db.cursor()
-        cursor.execute('SELECT * FROM posts')
+        cursor.execute('SELECT * FROM posts ORDER BY time DESC')
         data = cursor.fetchall()
         return data
 
