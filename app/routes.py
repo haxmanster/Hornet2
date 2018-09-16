@@ -186,6 +186,7 @@ def add_post():
                     )
                 )
                 db.commit()
+                flash('Dodano ogłoszenie pomyślnie.')
             return render_template('add_post.html', grupa=check_grupa(username), info=username)
         session.pop('username', None)
         session.clear()

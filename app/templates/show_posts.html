@@ -1,19 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<nav class="navbar-primary">
-  <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-arrow-left"></span></a>
-  <ul class="navbar-primary-menu">
-    <li>
-        <a href="#"><span class="glyphicon glyphicon-eye-open"></span><span class="nav-label">PANEL OGŁOSZEN</span></a>
-        <a href="#"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Dashboard</span></a>
-        <a href="#"><span class="glyphicon glyphicon-envelope"></span><span class="nav-label">Profile</span></a>
-        <a href="#"><span class="glyphicon glyphicon-cog"></span><span class="nav-label">Settings</span></a>
-        <a href="#"><span class="glyphicon glyphicon-film"></span><span class="nav-label">Notification</span></a>
-        <a href="#"><span class="glyphicon glyphicon-calendar"></span><span class="nav-label">Monitor</span></a>
-    </li>
-  </ul>
-</nav>
+
 {% endblock %}
 
 {% block body %}
@@ -26,10 +14,10 @@
                         <h5><b>Data:</b> {{item[0]}}</h5>
                     </div>
                     <div class="col-md-12 col-lg-12" align="left">
-                        <h5><b>Email:</b> {{item[1]}}</h5>
+                        <h5><b>Autor:</b> {{item[1]}}</h5>
                     </div>
                     <div class="col-md-12 col-lg-12">
-                        <h5><b>Tyutuł:</b> {{item[2]}}</h5>
+                        <h5><b>Tytuł:</b> {{item[2]}}</h5>
                     </div>
                     <div class="col-md-12 col-lg-12">
                         <h5><b>Treść:</b> {{item[3]}}</h5>

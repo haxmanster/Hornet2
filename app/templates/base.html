@@ -17,52 +17,35 @@
 </head>
 <body>
 
-<header>
-<nav class="navbar navbar-inverse navbar-global navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Baza przedszkolaka</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-             {% if session['username'] %}
-            <h3><span class="glyphicon glyphicon-user"></span> {{info}}</h3>
-            {% else %}
-            <a class="navbar-brand" href="#">Baza Przedszkolaka</a>
-            {% endif %}
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-user navbar-right">
+  <div class="topnav" id="myTopnav">
+    <a class="col-xs-9 col-sm-3 col-md-3 col-lg-2" href="{{ url_for('index') }}"> Akademia Malucha</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
                {% if grupa == 'nauczyciel' %}
-                    <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a></li>
+               <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('index') }}">Strona główna</a>
+               <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a>
             {% endif %}
             {% if grupa == 'rodzic' %}
-                    <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="{{ url_for('profil') }}">Profil</a></li>
+                    <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('index') }}">Strona główna</a>
+                    <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1"  href="{{ url_for('profil') }}">Profil</a>
             {% endif %}
             {% if grupa == 'admin' %}
-                    <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="{{ url_for('register') }}">Dodaj uzytkownika</a></li>
-	                <li><a href="{{ url_for('profil') }}">Profil</a></li>
-                    <li><a href="{{ url_for('child') }}">Child</a></li>
-                    <li><a href="{{ url_for('admin') }}">Admin</a></li>
-                    <li><a href="{{ url_for('upload_file') }}">send file</a></li>
-                    <li><a href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a></li>
+                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href=" {{ url_for('index') }}">Strona główna</a>
+                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('register') }}">Dodaj użytkownika</a>
+	                <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('profil') }}">Profil</a>
+                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('child') }}">Child</a>
+                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('admin') }}">Admin</a>
+                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('upload_file') }}">Send file</a>
+                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a>
             {% endif %}
             {% if session['username'] %}
-             <li><a href="{{ url_for('logout') }}">Wyloguj</a></li>
+             <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('logout') }}">Wyloguj  <span class="glyphicon glyphicon-log-out"></span></a>
             {% else %}
-                <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('index') }}">Strona główna</a>
+                <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('login') }}">Zaloguj się  <span class="glyphicon glyphicon-log-in"></span></a>
             {% endif %}
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+  </div>
 
+<header>
      {% block header%}
 
       {% endblock %}
@@ -83,10 +66,6 @@
 
 {% endblock %}
 
-
-<div class="footer">
-  <p>Copyright by Grzegorz Wolyniec design by Tweety86</p>
-</div>
 <!-- LIBRARY -->
 <script>
     $('.btn-expand-collapse').click(function(e) {
@@ -94,11 +73,23 @@
 				$('.main-content').toggleClass('collapsed');
     });
 </script>
+ <script>
+      function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+          x.className += " responsive";
+        } else {
+          x.className = "topnav";
+        }
+      }
+    </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
 </script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
 </script>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js">
 </script>
+  <script src=" https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="/static/bootstrap/bootstrap.min.js"></script>
 </body>
 </html>

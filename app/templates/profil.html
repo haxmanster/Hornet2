@@ -1,35 +1,30 @@
 {% extends 'base.html' %}
 {% block body %}
 
+  {% for item in data %}
+<div class="panel panel-success">
 
-<div class="panel panel-primary">
             <div class="panel-heading">
-
-              {% for item in data[:1] %}
-                 <h4 class="panel-heading">{{item[1]}} {{item[2]}}</h4>
+                <h4 class="panel-heading">{{item[1]}}</h4>
             </div>
-
             <div class="panel-body">
-              <div class="row">
-                <div class="col-md-3 col-lg-3 " align="left">
-                  <h5><b>Imię:</b></h5>
-                  <h5><b>Nazwisko:</b></h5>
-                  <h5><b>Data ur:</b> </h5>
-                  <h5><b>Pesel:</b></h5>
-                  <h5><b>Grupa:</b></h5>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12" align="left">
+                        <h5><b>Data:</b> {{item[0]}}</h5>
+                    </div>
+                    <div class="col-md-12 col-lg-12" align="left">
+                        <h5><b>Autor:</b> {{item[1]}}</h5>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <h5><b>Tytuł:</b> {{item[2]}}</h5>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <h5><b>Treść:</b> {{item[3]}}</h5>
+                    </div>
                 </div>
-                <div class="col-md-9 col-lg-9" align="left">
-                  <h5>{{item[1]}}</h5>
-                  <h5>{{item[2]}}</h5>
-                  <h5>{{item[3]}}</h5>
-                  <h5>{{item[0]}}</h5>
-                  <h5>{{item[4]}}</h5>
-                </div>
-              </div>
             </div>
-    {% if session['username'] == username %}
-<P>CHUJ</P>
-{% endif %}
+        </div>
+
   </div>
-      {% endfor %}
+     {% endfor %}
 {% endblock %}
