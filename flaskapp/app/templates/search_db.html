@@ -1,0 +1,42 @@
+{% extends 'admin.html' %}
+
+{% block body %}
+<div class="main-content">
+  <div class="panel panel-primary">
+            <div class="panel-heading">
+                  <div class="row">
+                      <div class="col-md-6 col-lg-6 colors" align="left">
+                          <p> Karta Przedszkolaka wpisz Pesel aby go wyszukać </p>
+                      </div>
+                      <div class="col-md-6 col-lg-6" align="right">
+                        <form action="" method="post" class="form-inline">
+                            <input class="colors form-control" type="text" placeholder="Search.." name="person_id" value="{{ request.form.person_id }}" align="left">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
+                        </form>
+                      </div>
+                  </div>
+            </div>
+            <div class="panel-body">
+                  <div class="row">
+                    {% for item in data %}
+                    <div class="col-md-12 col-lg-12" align="left">
+                        <h5><b>PESEL:</b> {{item[0]}}</h5>
+                    </div>
+                    <div class="col-md-12 col-lg-12" align="left">
+                        <h5><b>Imię:</b> {{item[1]}}</h5>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <h5><b>Nazwisko:</b> {{item[2]}}</h5>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <h5><b>data-urodzenia:</b> {{item[3]}}</h5>
+                    </div>
+                      <div class="col-md-12 col-lg-12">
+                        <h5><b>Grupa:</b> {{item[4]}}</h5>
+                    </div>
+                  {% endfor %}
+                </div>
+                  </div>
+                  </div>
+            </div>
+{% endblock %}

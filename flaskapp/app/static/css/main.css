@@ -1,0 +1,258 @@
+body {
+    background-image: url("/static/image/rawpixel-743088-unsplash.jpg");
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #444;
+}
+
+
+ul {
+  list-style-type:none;
+}
+
+.navbar-global {
+  background-color: indigo;
+}
+
+
+.navbar-global .navbar-brand {
+  color: white;
+}
+
+.navbar-global .navbar-user > li > a
+{
+  color: white;
+}
+
+.navbar-primary {
+  background-color: #333;
+  bottom: 0px;
+  left: 0px;
+  position: absolute;
+  top: 51px;
+  width: 200px;
+  z-index: 8;
+  overflow: hidden;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+.navbar-primary.collapsed {
+  width: 60px;
+}
+
+.navbar-primary.collapsed .glyphicon {
+  font-size: 22px;
+}
+
+.navbar-primary.collapsed .nav-label {
+  display: none;
+}
+
+.btn-expand-collapse {
+    position: absolute;
+    display: block;
+    left: 0px;
+    bottom:0;
+    width: 100%;
+    padding: 8px 0;
+    border-top:solid 1px #666;
+    color: grey;
+    font-size: 20px;
+    text-align: center;
+}
+
+.btn-expand-collapse:hover,
+.btn-expand-collapse:focus {
+    background-color: #222;
+    color: white;
+}
+
+.btn-expand-collapse:active {
+    background-color: #111;
+}
+
+.navbar-primary-menu,
+.navbar-primary-menu li {
+  margin:0; padding:0;
+  list-style: none;
+}
+
+.navbar-primary-menu li a {
+  display: block;
+  padding: 10px 18px;
+  text-align: left;
+  border-bottom:solid 1px #444;
+  color: #ccc;
+}
+
+.navbar-primary-menu li a:hover {
+  background-color: #000;
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-primary-menu li a .glyphicon {
+  margin-right: 6px;
+}
+
+.navbar-primary-menu li a:hover .glyphicon {
+  color: orchid;
+}
+
+.navbar-header h3 {
+    color: white;
+    font-size: 15px;
+}
+
+.main-content {
+  margin-top: 30px;
+  padding: 10px;
+  margin-top: 2%;
+}
+
+.collapsed + .main-content {
+  margin-left: 60px;
+  margin-top: 110px;
+}
+
+.form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 450px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+
+}
+
+.form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.form button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+    background: #43A047;
+}
+.form .message {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+}
+.form .message a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+.form .register-form {
+    display: none;
+}
+
+.footer {
+  color:grey;
+  font-size: 20px;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+}
+
+
+#form_container {
+    padding: 15px 15px;
+    margin-top: 15px;
+    background: rgba(255,255,255,0.75);
+    border-radius: 1%;
+}
+
+.navbar-header h3 {
+    color: white;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+.topnav {
+  background-color: black;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  font-family: 'Lobster', cursive;
+  float: left;
+  display: block;
+  color: lightgray;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+.topnav img {
+  margin-right: 20px;
+  width: 32px;
+}
+/* Change the color of links on hover */
+.topnav a:hover {
+  color: ghostwhite;
+  text-decoration: none;
+
+
+}
+
+/* Add an active class to highlight the current page */
+.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Hide the link that should open and close the topnav on small screens */
+.topnav .icon {
+  display: none;
+}
+@media screen and (max-width: 770px) {
+  .topnav a:not(:first-child) {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+@media screen and (max-width: 770px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: inline-block;
+    text-align: left;
+    font-size: 0.7em;
+  }
+}
