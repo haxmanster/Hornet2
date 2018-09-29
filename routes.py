@@ -36,6 +36,7 @@ def profil():
 
         return render_template("profil.html", data=data, the_title='BAZA PRZEDSZKOLAKA', info=username,
                                grupa=check_grupa(username))
+    return redirect(url_for('login'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -91,49 +92,46 @@ def child():
             db.commit()
             return redirect(url_for('child'))
         return render_template("child.html", the_title='BAZA PRZEDSZKOLAKA', info=username, grupa=check_grupa(username))
+    return redirect(url_for('login'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    username = session['username']
+    username = if_login()
     if check_grupa(username) == check_grupa('admin'):
         if request.method == 'POST':
             with sqlite3.connect("static/user.db") as db:
                 cursor = db.cursor()
-
-            cursor.execute(
-                'INSERT INTO users (grupa, username, password, email) VALUES (?, ?, ?, ?)',
-                (
-                    request.form.get('grupa', type=str),
-                    request.form.get('username', type=str),
-                    hash_passwd(request.form.get('password', type=str)),
-                    request.form.get('email', type=str))
-            )
-            db.commit()
+                cursor.execute(
+                    'INSERT INTO users (grupa, username, password, email) VALUES (?, ?, ?, ?)',
+                    (
+                        request.form.get('grupa', type=str),
+                        request.form.get('username', type=str),
+                        hash_passwd(request.form.get('password', type=str)),
+                        request.form.get('email', type=str))
+                )
+                db.commit()
             return redirect(url_for('register'))
         return render_template("register.html", the_title='BAZA PRZEDSZKOLAKA', info=username,
                                grupa=check_grupa(username))
-
+    return redirect(url_for('login'))
 
 @app.route('/admin/')
 def admin():
-    if 'username' in session:
-        username = session['username']
-        if check_grupa(username) == 'admin':
-            return render_template('admin.html', grupa=check_grupa(username), info=username)
-
+    username = if_login()
+    if check_grupa(username) == 'admin':
+        return render_template('admin.html', grupa=check_grupa(username), info=username)
     return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
 
 
 @app.route('/search_db/', methods=['POST', 'GET'])
 def search_db():
-    if 'username' in session:
-        username = session['username']
-        if check_grupa(username) == 'admin':
-            if request.method == 'POST':
-                pesel = request.form['person_id']
-                data = find_child(pesel)
-                return render_template('search_db.html', grupa=check_grupa(username), info=username, data=data[::])
+    username = if_login()
+    if check_grupa(username) == 'admin':
+        if request.method == 'POST':
+            pesel = request.form['person_id']
+            data = find_child(pesel)
+            return render_template('search_db.html', grupa=check_grupa(username), info=username, data=data[::])
         return render_template('search_db.html', grupa=check_grupa(username), info=username)
     return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
 
@@ -166,7 +164,6 @@ def upload_file():
 @app.route('/check_users', methods=['POST', 'GET'])
 def check_user():
     if 'username' in session:
-        username = session['username']
         if check_grupa(username) == check_grupa('admin'):
             data = check_username()
             return render_template('check_users.html', grupa=check_grupa(username), info=username, data=data)
@@ -198,8 +195,7 @@ def add_post():
         session.pop('username', None)
         session.clear()
         return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
-    else:
-        return redirect(url_for('login'))
+    return redirect(url_for('login'))
 
 @app.route('/show_posts')
 def show_posts():

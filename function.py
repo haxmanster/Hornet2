@@ -5,7 +5,10 @@ from flask import sessions,session
 
 
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'jpg', 'png', 'jpeg', 'gif', 'doc', 'rar'}
-
+def if_login():
+    if 'username' in session:
+        username = session['username']
+    return username
 
 def db_connect():
     with sqlite3.connect("static/user.db") as db:
@@ -20,6 +23,12 @@ def db_connect_post():
         cursor.execute('SELECT * FROM posts ORDER BY time DESC')
         data = cursor.fetchall()
         return data
+
+def delete_posts(title):
+    with sqlite3.connect("static/user.db") as db:
+        cursor = db.cursor()
+        cursor.execute('DELETE FROM posts WHERE Name=?', (title,))
+        return
 
 def check_username():
     find = db_connect()
