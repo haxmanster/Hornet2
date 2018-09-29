@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block header %}
+<nav class="navbar-primary">
+  <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-arrow-left"></span></a>
+  <ul class="navbar-primary-menu">
+    <li>
+      <a href="{{ url_for('check_user') }}"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Dashboard</span></a>
+      <a href="{{ url_for('search_db') }}"><span class="glyphicon glyphicon-envelope"></span><span class="nav-label">Profile</span></a>
+      <a href="#"><span class="glyphicon glyphicon-cog"></span><span class="nav-label">Settings</span></a>
+      <a href="#"><span class="glyphicon glyphicon-film"></span><span class="nav-label">Notification</span></a>
+      <a href="#"><span class="glyphicon glyphicon-calendar"></span><span class="nav-label">Monitor</span></a>
+    </li>
+  </ul>
+</nav>
+{% endblock %}
+{% block body%}
+
+{% endblock %}

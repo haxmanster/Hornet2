@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h1> Dodaj ogłoszenie</h1>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" action="" method="post">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Email:</label>
+                    <div class="col-sm-8">
+                        <input type="email" class="form-control"  placeholder="Wpisz email" name="email" value="{{ request.form.email }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Tytuł ogłoszenia</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="Wpisz tytuł ogłoszenia" name="title" value="{{ request.form.title }}">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="control-label col-sm-2">Treśc ogłoszenia:</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" name="contents" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+menu-boczne
+<nav class="navbar-primary">
+  <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-arrow-left"></span></a>
+  <ul class="navbar-primary-menu">
+    <li>
+        <a href="#"><span class="glyphicon glyphicon-eye-open"></span><span class="nav-label">PANEL OGŁOSZEŃ</span></a>
+        <a href="#"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Dashboard</span></a>
+        <a href="#"><span class="glyphicon glyphicon-envelope"></span><span class="nav-label">Profile</span></a>
+        <a href="#"><span class="glyphicon glyphicon-cog"></span><span class="nav-label">Settings</span></a>
+        <a href="#"><span class="glyphicon glyphicon-film"></span><span class="nav-label">Notification</span></a>
+        <a href="#"><span class="glyphicon glyphicon-calendar"></span><span class="nav-label">Monitor</span></a>
+    </li>
+  </ul>
+</nav>
+
+
+<nav class="navbar navbar-inverse navbar-global navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header" id="myTopnav">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Baza przedszkolaka</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+             {% if session['username'] %}
+            <h3><span class="glyphicon glyphicon-user"></span> {{info}}</h3>
+            {% else %}
+            <a class="navbar-brand" href="#">Baza Przedszkolaka AKADEMIA MALUCHA</a>
+            {% endif %}
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-user navbar-right">
+               {% if grupa == 'nauczyciel' %}
+                    <li><a href="{{ url_for('index') }}">Strona główna</a></li>
+                    <li><a href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a></li>
+            {% endif %}
+            {% if grupa == 'rodzic' %}
+                    <li><a href="{{ url_for('index') }}">Strona główna</a></li>
+                    <li><a href="{{ url_for('profil') }}">Profil</a></li>
+            {% endif %}
+            {% if grupa == 'admin' %}
+                    <li><a href="{{ url_for('index') }}">Strona główna</a></li>
+                    <li><a href="{{ url_for('register') }}">Dodaj użytkownika</a></li>
+	                <li><a href="{{ url_for('profil') }}">Profil</a></li>
+                    <li><a href="{{ url_for('child') }}">Child</a></li>
+                    <li><a href="{{ url_for('admin') }}">Admin</a></li>
+                    <li><a href="{{ url_for('upload_file') }}">Send file</a></li>
+                    <li><a href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a></li>
+            {% endif %}
+            {% if session['username'] %}
+             <li><a href="{{ url_for('logout') }}">Wyloguj  <span class="glyphicon glyphicon-log-out"></span></a></li>
+            {% else %}
+                <li><a href="{{ url_for('index') }}">Strona główna</a></li>
+                <li><a href="{{ url_for('login') }}">Zaloguj się  <span class="glyphicon glyphicon-log-in"></span></a></li>
+            {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>

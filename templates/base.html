@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>{{the_title}}</title>
+  <link rel="icon" type="image/png" href="/static/ico/clock.ico">
+   	<link rel="stylesheet" href="/static/css/main.css" />
+    <link rel="stylesheet" href="/static/css/dashboard.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=VT323&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+  <div class="topnav" id="myTopnav">
+    <a class="col-xs-9 col-sm-3 col-md-3 col-lg-2" href="{{ url_for('index') }}"> Akademia Malucha</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+               {% if grupa == 'nauczyciel' %}
+               <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('index') }}">Strona główna</a>
+               <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a>
+            {% endif %}
+            {% if grupa == 'rodzic' %}
+                    <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('index') }}">Strona główna</a>
+                    <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1"  href="{{ url_for('profil') }}">Profil</a>
+            {% endif %}
+            {% if grupa == 'admin' %}
+                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href=" {{ url_for('index') }}">Strona główna</a>
+                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('register') }}">Dodaj użytkownika</a>
+	                <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('profil') }}">Profil</a>
+                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('child') }}">Child</a>
+                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('admin') }}">Admin</a>
+                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('upload_file') }}">Send file</a>
+                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a>
+            {% endif %}
+            {% if session['username'] %}
+             <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('logout') }}">Wyloguj  <span class="glyphicon glyphicon-log-out"></span></a>
+            {% else %}
+                <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('index') }}">Strona główna</a>
+                <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('login') }}">Zaloguj się  <span class="glyphicon glyphicon-log-in"></span></a>
+            {% endif %}
+  </div>
+
+<header>
+     {% block header%}
+
+      {% endblock %}
+</header>
+    <div class="main-content">
+        {% with messages = get_flashed_messages() %}
+        {%if messages%}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                    <h3>{{ message }}</h3>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
+{%block body%}
+
+{% endblock %}
+
+<!-- LIBRARY -->
+<script>
+    $('.btn-expand-collapse').click(function(e) {
+				$('.navbar-primary').toggleClass('collapsed');
+				$('.main-content').toggleClass('collapsed');
+    });
+</script>
+ <script>
+      function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+          x.className += " responsive";
+        } else {
+          x.className = "topnav";
+        }
+      }
+    </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+</script>
+<script src="http://code.jquery.com/jquery-3.2.1.min.js">
+</script>
+  <script src=" https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="/static/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>
