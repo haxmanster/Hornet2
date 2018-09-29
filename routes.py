@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*- 
 
 from flask import Flask
@@ -47,7 +46,7 @@ def login():
         password = request.form['password']
         completion = validate(username, password)
         if completion is False:
-            error = 'Niepoprawny login lub hasło'
+            error = 'Niepoprawny login lub haslo'
         else:
             session['username'] = request.form['username']
             username = session['username']
@@ -181,7 +180,7 @@ def check_user():
 def add_post():
     if 'username' in session:
         username = session['username']
-        if check_grupa(username) == 'nauczyciel' or check_grupa(username) == check_grupa('admin'):
+        if check_grupa(username) == 'nauczyciel' or check_grupa(username) == 'admin':
             if request.method == 'POST':
                 with sqlite3.connect("static/user.db") as db:
                     cursor = db.cursor()
@@ -194,14 +193,13 @@ def add_post():
                     )
                 )
                 db.commit()
-                flash('Dodano ogłoszenie pomyślnie.')
-            return render_template('add_post.html', grupa=check_grupa(username), info=username)
+                flash('Dodano ogloszenie pomyslnie.')
+            return render_template('/add_post.html', grupa=check_grupa(username), info=username)
         session.pop('username', None)
         session.clear()
         return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
     else:
         return redirect(url_for('login'))
-
 
 @app.route('/show_posts')
 def show_posts():
