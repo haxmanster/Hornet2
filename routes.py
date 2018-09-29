@@ -105,18 +105,17 @@ def register():
                     cursor = db.cursor()
 
                 cursor.execute(
-                    'INSERT INTO users (grupa, username, password, email) VALUES (?, ?, ?, ?)',
-                    (
-                        request.form.get('grupa', type=str),
-                        request.form.get('username', type=str),
-                        hash_passwd(request.form.get('password', type=str)),
-                        request.form.get('email', type=str))
-                )
+                'INSERT INTO users (grupa, username, password, email) VALUES (?, ?, ?, ?)',
+                (
+                    request.form.get('grupa', type=str),
+                    request.form.get('username', type=str),
+                    hash_passwd(request.form.get('password', type=str)),
+                    request.form.get('email', type=str))
+            )
                 db.commit()
-            return redirect(url_for('register'))
-        return render_template("register.html", the_title='BAZA PRZEDSZKOLAKA', info=username,
+                return redirect(url_for('register'))
+            return render_template("register.html", the_title='BAZA PRZEDSZKOLAKA', info=username,
                                grupa=check_grupa(username))
-    return redirect(url_for('login'))
 
 @app.route('/admin/')
 def admin():
