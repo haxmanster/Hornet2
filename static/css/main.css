@@ -1,5 +1,6 @@
 body {
     background-image: url("/static/image/rawpixel-743088-unsplash.jpg");
+    background-size: cover;
     margin: 0;
     padding: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -196,7 +197,7 @@ ul {
 }
 
 .topnav {
-  background-color: black;
+  background-color: #595656;
   overflow: hidden;
 }
 
@@ -253,6 +254,11 @@ ul {
     float: none;
     display: inline-block;
     text-align: left;
-    font-size: 0.7em;
+    font-size: 0.9em;
   }
+}
+.panel-primary {
+margin-left: 10%;
+margin-right: 10%;
+margin-top: 2%;
 }
