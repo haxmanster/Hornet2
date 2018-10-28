@@ -12,38 +12,57 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 </head>
 <body>
 
-  <div class="topnav" id="myTopnav">
-    <a class="col-xs-9 col-sm-3 col-md-3 col-lg-2" href="{{ url_for('index') }}"> Akademia Malucha</a>
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
-               {% if grupa == 'nauczyciel' %}
-               <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('index') }}">Strona główna</a>
-               <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Akademia Malucha</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+    <ul class="nav navbar-nav">
+         {% if grupa == 'nauczyciel' %}
+        <li><a href="{{ url_for('index') }}">Strona główna</a></li>
+        <li><a  href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a></li>
+        {% endif %}
+        {% if grupa == 'rodzic' %}
+        <li><a  href="{{ url_for('index') }}">Strona główna</a></li>
+        <li><a  href="{{ url_for('profil') }}">Profil</a></li>
             {% endif %}
-            {% if grupa == 'rodzic' %}
-                    <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('index') }}">Strona główna</a>
-                    <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1"  href="{{ url_for('profil') }}">Profil</a>
+        {% if grupa == 'admin' %}
+        <li><a  href=" {{ url_for('index') }}">Strona główna</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="{{ url_for('admin') }}">Administrator <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a  href="{{ url_for('register') }}">Dodaj użytkownika</a></li>
+                <li><a  href="{{ url_for('profil') }}">Profile</a></li>
+                <li><a  href="{{ url_for('child') }}">Dodaj przedszkolaka</a></li>
+                <li><a  href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a></li>
+                <li><a  href="{{ url_for('upload_file') }}">Dodaj plik</a></li>
+            </ul>
+        </li>
             {% endif %}
-            {% if grupa == 'admin' %}
-                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href=" {{ url_for('index') }}">Strona główna</a>
-                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('register') }}">Dodaj użytkownika</a>
-	                <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('profil') }}">Profil</a>
-                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('child') }}">Child</a>
-                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('admin') }}">Admin</a>
-                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('upload_file') }}">Send file</a>
-                    <a class="col-xs-12 col-sm-3 col-md-2 col-lg-1" href="{{ url_for('add_post') }}">Dodaj ogłoszenie</a>
-            {% endif %}
-            {% if session['username'] %}
-             <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('logout') }}">Wyloguj  <span class="glyphicon glyphicon-log-out"></span></a>
-            {% else %}
-                <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('index') }}">Strona główna</a>
-                <a class="col-xs-12 col-sm-2 col-md-2 col-lg-1" href="{{ url_for('login') }}">Zaloguj się  <span class="glyphicon glyphicon-log-in"></span></a>
-            {% endif %}
+        {% if session['username'] %}
+        <li> <a  href="{{ url_for('logout') }}">Wyloguj  <span class="glyphicon glyphicon-log-out"></span></a></li>
+        {% else %}
+        <li><a  href="{{ url_for('index') }}">Strona główna</a></li>
+        <li><a  href="{{ url_for('login') }}">Zaloguj się  <span class="glyphicon glyphicon-log-in"></span></a></li>
+        {% endif %}
+    </ul>
+    </div>
   </div>
+</nav>
 
 <header>
      {% block header%}
@@ -67,22 +86,6 @@
 {% endblock %}
 
 <!-- LIBRARY -->
-<script>
-    $('.btn-expand-collapse').click(function(e) {
-				$('.navbar-primary').toggleClass('collapsed');
-				$('.main-content').toggleClass('collapsed');
-    });
-</script>
- <script>
-      function myFunction() {
-        var x = document.getElementById("myTopnav");
-        if (x.className === "topnav") {
-          x.className += " responsive";
-        } else {
-          x.className = "topnav";
-        }
-      }
-    </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
 </script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">

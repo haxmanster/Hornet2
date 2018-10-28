@@ -97,13 +97,11 @@ def child():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if 'username' in session:
-        username = session['username']
-        if check_grupa(username) == check_grupa('admin'):
-            if request.method == 'POST':
-                with sqlite3.connect("static/user.db") as db:
-                    cursor = db.cursor()
-
+    username = if_login()
+    if check_grupa(username) == check_grupa('admin'):
+        if request.method == 'POST':
+            with sqlite3.connect("static/user.db") as db:
+                cursor = db.cursor()
                 cursor.execute(
                     'INSERT INTO users (grupa, username, password, email) VALUES (?, ?, ?, ?)',
                     (
@@ -120,23 +118,20 @@ def register():
 
 @app.route('/admin/')
 def admin():
-    if 'username' in session:
-        username = session['username']
-        if check_grupa(username) == 'admin':
-            return render_template('admin.html', grupa=check_grupa(username), info=username)
-
+    username = if_login()
+    if check_grupa(username) == 'admin':
+        return render_template('admin.html', grupa=check_grupa(username), info=username)
     return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
 
 
 @app.route('/search_db/', methods=['POST', 'GET'])
 def search_db():
-    if 'username' in session:
-        username = session['username']
-        if check_grupa(username) == 'admin':
-            if request.method == 'POST':
-                pesel = request.form['person_id']
-                data = find_child(pesel)
-                return render_template('search_db.html', grupa=check_grupa(username), info=username, data=data[::])
+    username = if_login()
+    if check_grupa(username) == 'admin':
+        if request.method == 'POST':
+            pesel = request.form['person_id']
+            data = find_child(pesel)
+            return render_template('search_db.html', grupa=check_grupa(username), info=username, data=data[::])
         return render_template('search_db.html', grupa=check_grupa(username), info=username)
     return redirect(url_for('login')), flash('Nie jestes zalogowany!!  Prosze sie wczesniej zalogować')
 
@@ -169,7 +164,6 @@ def upload_file():
 @app.route('/check_users', methods=['POST', 'GET'])
 def check_user():
     if 'username' in session:
-        username = session['username']
         if check_grupa(username) == check_grupa('admin'):
             data = check_username()
             return render_template('check_users.html', grupa=check_grupa(username), info=username, data=data)
