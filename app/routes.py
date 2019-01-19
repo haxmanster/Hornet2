@@ -1,83 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from app import app
 from werkzeug.utils import secure_filename
-from datetime import timedelta
+from flask import render_template, request, redirect, url_for, flash, session
 import sqlite3
 import os
-import hashlib
-
-
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'jpg', 'png', 'jpeg', 'gif', 'doc', 'rar'}
-
-app = Flask(__name__)
-app.secret_key = os.urandom(24)
-
-app.permanent_session_lifetime = timedelta(minutes=10)
-
-
-def db_connect():
-    with sqlite3.connect("static/user.db") as db:
-        cursor = db.cursor()
-        cursor.execute('SELECT * FROM users, dzieci')
-        data = cursor.fetchall()
-        return data
-
-def check_username():
-    find = db_connect()
-    return find
-
-
-def find_child(pesel):
-        data = db_connect()
-        for rows in data[:]:
-            pesel = rows[5]
-            name = rows[6]
-            surname = rows[7]
-            date_of_birth = rows[8]
-            group = rows[9]
-            result = "PESEL :" + " " + pesel, "IMIĘ :" + " " + name, "NAZWISKO :" + " " + surname, \
-                     "DATA URODZENIA :" + " " + date_of_birth, "GRUPA PRZEDSZKOLNA :" + " " + group
-            return result
-
-
-def check_grupa(username):
-    with sqlite3.connect("static/user.db") as db:
-        cur = db.cursor()
-    cur.execute("SELECT * FROM users")
-    rows = cur.fetchall()
-    for row in rows:
-        db_grupa = row[1]
-        db_user = row[2]
-        if db_grupa == db_grupa and db_user == username:
-            return db_grupa
-
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-def hash_passwd(hashed_password):
-    hash_pass = hashlib.sha224(hashed_password.encode()).hexdigest()
-    return hash_pass
-
-
-def check_password(hashed_password, user_password):
-    return hashed_password == hashlib.sha224(user_password.encode()).hexdigest()
-
-
-def validate(username, password):
-    con = sqlite3.connect('static/user.db')
-    completion = False
-    with con:
-                cur = con.cursor()
-                cur.execute("SELECT * FROM Users")
-                rows = cur.fetchall()
-                for row in rows:
-                    db_user = row[2]
-                    db_pass = row[3]
-                    if db_user == username:
-                        completion = check_password(db_pass, password)
-    return completion
+from app.function import validate, check_grupa, hash_passwd, find_child, allowed_file, check_username, show_posted
 
 
 @app.route('/')
@@ -86,14 +12,14 @@ def index():
         username = session['username']
         return render_template('base.html', the_title="BAZA PRZEDSZKOLAKA", info=username, grupa=check_grupa(username))
     else:
-        return render_template('base.html', the_title="BAZA PRZEDSZKOLAKA")
+        return redirect(url_for('show_posts'), )
 
 
 @app.route('/profil')
 def profil():
     if 'username' in session:
         username = session['username']
-        with sqlite3.connect("static/user.db") as db:
+        with sqlite3.connect("app/static/user.db") as db:
             cursor = db.cursor()
             cursor.execute('SELECT person_id, name, surname, birth, grupa FROM dzieci')
             data = cursor.fetchall()
@@ -140,7 +66,7 @@ def child():
     if 'username' in session:
         username = session['username']
         if request.method == 'POST':
-            with sqlite3.connect("static/user.db") as db:
+            with sqlite3.connect("app/static/user.db") as db:
                 cursor = db.cursor()
 
             cursor.execute(
@@ -163,7 +89,7 @@ def register():
     username = session['username']
     if check_grupa(username) == check_grupa('admin'):
         if request.method == 'POST':
-            with sqlite3.connect("static/user.db") as db:
+            with sqlite3.connect("app/static/user.db") as db:
                 cursor = db.cursor()
 
             cursor.execute(
@@ -220,25 +146,43 @@ def upload_file():
                 return redirect(request.url)
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
-                file.save(os.path.join('static/storage', filename))
+                file.save(os.path.join('app/static/storage', filename))
                 return redirect(url_for('index', filename=filename)), flash('Upload file successfull')
         return render_template('upload.html', info=username, grupa=check_grupa(username))
 
 
-@app.route('/check_users', methods=['POST','GET'])
+@app.route('/check_users', methods=['POST', 'GET'])
 def check_user():
-    if 'username' in session:
-        username = session['username']
+    username = session['username']
+    if check_grupa(username) == check_grupa('admin'):
         data = check_username()
         return render_template('check_users.html', grupa=check_grupa(username), info=username, data=data)
     else:
         return render_template('check_users.html',)
 
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True, port=8061)
+@app.route('/add_post', methods=['POST', 'GET'])
+def add_post():
+    username = session['username']
+    if check_grupa(username) == 'nauczyciel' or check_grupa(username) == check_grupa('admin'):
+        if request.method == 'POST':
+            with sqlite3.connect("app/static/user.db") as db:
+                cursor = db.cursor()
+            cursor.execute(
+                'INSERT INTO posts (email, title, contents) VALUES (?, ?, ?)',
+                (
+                    request.form.get('email', type=str),
+                    request.form.get('title', type=str),
+                    request.form.get('contents', type=str)
+                )
+            )
+            db.commit()
+        return render_template('add_post.html', grupa=check_grupa(username), info=username)
+    else:
+        return redirect(url_for('index'))
 
-#check_username()
 
-print(check_username())
-print(find_child(85011118272))
+@app.route('/show_posts')
+def show_posts():
+        data = show_posted()
+        return render_template('show_posts.html', data=data)

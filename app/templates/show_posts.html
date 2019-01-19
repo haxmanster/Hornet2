@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h1> Witaj na stronie ogłoszen Wersja BETA ;D</h1>
+        </div>
+        <div class="panel-body">
+            <ul>
+                {% for item in data %}
+                <P> EMAIL AUTORA :</P>
+                <li>{{item[0]}}</li>
+                <P> TYTUŁ OGŁOSZENIA</P>
+                    <li>{{item[1]}}</li>
+                <P>TREŚC OGŁOSZENIA:</P>
+                    <li>{{item[2]}}</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
