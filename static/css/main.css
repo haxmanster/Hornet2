@@ -21,6 +21,9 @@ header h1.logo {
   text-transform: uppercase;
   float: left;
 }
+header a.logo {
+  color: #fff;
+}
 
 .navbar-header h1 {
   color: #FFFFFF;
